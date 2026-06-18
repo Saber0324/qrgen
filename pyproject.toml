@@ -1,0 +1,15 @@
+[project]
+name = "qrgen"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [{ name = "Saber_0324", email = "saber0324@proton.me" }]
+requires-python = ">=3.13"
+dependencies = ["pillow>=12.2.0", "pyside6>=6.11.1", "segno>=1.6.6"]
+
+[project.scripts]
+qrcode = "qrgen.main:main"
+
+[build-system]
+requires = ["uv_build>=0.11.8,<0.12.0"]
+build-backend = "uv_build"
