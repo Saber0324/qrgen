@@ -1,5 +1,5 @@
 from PySide6 import QtCore, QtGui, QtWidgets
-from qrgen.main import generated_path
+from qrgen.qr_code.qr_generator import generated_path
 
 
 class MainWidget(QtWidgets.QLabel):

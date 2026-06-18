@@ -8,7 +8,7 @@ requires-python = ">=3.13"
 dependencies = ["pillow>=12.2.0", "pyside6>=6.11.1", "segno>=1.6.6"]
 
 [project.scripts]
-qrcode = "qrgen.main:main"
+qrgen = "qrgen.main:main"
 
 [build-system]
 requires = ["uv_build>=0.11.8,<0.12.0"]
