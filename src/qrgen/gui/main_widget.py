@@ -1,43 +1,41 @@
 from PySide6 import QtCore, QtGui, QtWidgets
+from qrgen.qr_code import qr_generator
 from qrgen.qr_code.qr_generator import generated_path
+from qrgen.gui.module_card import ModuleCard
 
 
-class MainWidget(QtWidgets.QLabel):
+class MainWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.top_layout = QtWidgets.QVBoxLayout()
-        self.button_layout = QtWidgets.QHBoxLayout()
+        self.setWindowTitle("qrgen")
+        top_layout = QtWidgets.QHBoxLayout(self)
+        scroll = QtWidgets.QScrollArea()
+        scroll.setWidgetResizable(True)
 
-        self.data_line = QtWidgets.QLineEdit()
-        self.data_line.setPlaceholderText("Insert information")
+        container = QtWidgets.QWidget()
+        container_layout = QtWidgets.QVBoxLayout(container)
+        container_layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
 
-        self.last_generated_pixmap = QtGui.QPixmap(str(generated_path / "qrcode"))
-        self.display_label = QtWidgets.QLabel()
-        self.display_label.setPixmap(self.last_generated_pixmap)
+        scroll.setWidget(container)
 
-        self.create_button = QtWidgets.QPushButton()
-        self.create_button.setText("Create")
-        self.create_button.clicked.connect(self._on_create_button_click)
+        preview = QtWidgets.QFrame()
+        preview.setFixedWidth(250)
 
-        self.qr_code_label = QtWidgets.QLabel()
-        self.save_button = QtWidgets.QPushButton()
-        self.save_button.setText("Save")
-        self.save_button.clicked.connect(self._on_save_button_click)
+        top_layout.addWidget(scroll)
+        top_layout.addWidget(preview)
 
-        self.setWindowTitle("qr creator")
-        self.setLayout(self.top_layout)
-        self.top_layout.addWidget(self.data_line)
-        self.top_layout.addWidget(self.display_label)
-        self.top_layout.addLayout(self.button_layout)
-        self.button_layout.addWidget(self.create_button)
-        self.button_layout.addWidget(self.save_button)
+        last_generated_pixmap = QtGui.QPixmap(str(generated_path / "qrcode"))
+        display_label = QtWidgets.QLabel()
+        display_label.setSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum
+        )
+        display_label.setPixmap(last_generated_pixmap)
 
-    def _on_create_button_click(self):
-        print(self.create_button.text())
-
-    def _on_save_button_click(self):
-        print(self.save_button.text())
+        content_card = ModuleCard("CONTENT")
+        content_card.add_widget(QtWidgets.QLabel("Your website URL"))
+        content_card.add_widget(QtWidgets.QLineEdit())
+        container_layout.addWidget(content_card)
 
 
 def run_gui():
