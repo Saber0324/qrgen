@@ -31,5 +31,5 @@ class ModuleCard(QtWidgets.QFrame):
         self.toggle_btn.setText("↑" if visible else "↓")
         self.body.setVisible(not visible)
 
-    def add_wiget(self, widget: QtWidgets.QWidget):
+    def add_widget(self, widget: QtWidgets.QWidget):
         self.body_layout.addWidget(widget)
