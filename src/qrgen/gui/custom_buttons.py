@@ -1,4 +1,5 @@
-from PySide6 import QtWidgets, QtGui
+from PySide6 import QtWidgets, QtGui, QtCore, QtSvg
+from PySide6.QtCore import QSize
 from PySide6.QtGui import QColor
 from qrgen.gui.custom_widgets import ImageDropTarget
 from qrgen.gui.constants import ASSETS_DIR
@@ -22,10 +23,18 @@ class ColorButton(QtWidgets.QPushButton):
 class UploadButton(QtWidgets.QGroupBox):
     def __init__(self, text: str):
         super().__init__(text)
-        upload_button_icon = QtGui.QPixmap(str(ASSETS_DIR / "upload.svg"))
+        upload_icon_path = ASSETS_DIR / "upload.svg"
+        upload_icon_text = upload_icon_path.read_text()
+        upload_icon_text = upload_icon_text.replace('fill="#000000"', 'fill="#606090"')
+        renderer = QtSvg.QSvgRenderer(QtCore.QByteArray(upload_icon_text.encode()))
+        pixmap = QtGui.QPixmap(32, 32)
+        pixmap.fill(QtCore.Qt.GlobalColor.transparent)
+        painter = QtGui.QPainter(pixmap)
+        renderer.render(painter)
+        painter.end()
         self.setStyleSheet("""
             QGroupBox {
-                border: 1px solid gray;
+                border: 1px solid #606090;
                 border-radius: 6px;
                 margin-top: 1ex;
             }
@@ -40,7 +49,9 @@ class UploadButton(QtWidgets.QGroupBox):
         layout = QtWidgets.QHBoxLayout(self)
         self.upload_label = QtWidgets.QLabel("No image found")
         upload_button = QtWidgets.QPushButton()
-        upload_button.setIcon(upload_button_icon)
+        upload_button.setIcon(QtGui.QIcon(pixmap))
+        upload_button.setFixedSize(QSize(30, 30))
+        upload_button.setFlat(True)
         upload_button.clicked.connect(self._on_upload_button_clicked)
 
         layout.addWidget(self.upload_label)
@@ -64,7 +75,7 @@ class InsertUrl(QtWidgets.QGroupBox):
         super().__init__(text)
         self.setStyleSheet("""
             QGroupBox {
-                border: 1px solid gray;
+                border: 1px solid #606090;
                 border-radius: 6px;
                 margin-top: 1ex;
             }
