@@ -47,7 +47,7 @@ class UploadButton(QtWidgets.QGroupBox):
         """)
 
         layout = QtWidgets.QHBoxLayout(self)
-        self.upload_label = QtWidgets.QLabel("No image found")
+        self.upload_label = QtWidgets.QLabel("No image selected")
         upload_button = QtWidgets.QPushButton()
         upload_button.setIcon(QtGui.QIcon(pixmap))
         upload_button.setFixedSize(QSize(30, 30))
@@ -63,11 +63,13 @@ class UploadButton(QtWidgets.QGroupBox):
         self.upload_dropable = ImageDropTarget()
         upload_layout.addWidget(self.upload_dropable)
 
-    def _on_upload_button_clicked(self):
-        result = self.upload_dialog.exec()
-        if result == QtWidgets.QDialog.DialogCode.Rejected:
-            return
-        self.upload_label.setText(f"Icon: {self.upload_dropable._dropped_file}")
+    def _on_upload_button_clicked(self, dialog: QtWidgets.QDialog):
+        file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self, "Select Image", "", "Images (*.png *.jpg *.jpeg *.svg)"
+        )
+        if file_path:
+            self.upload_label.setText(f"{file_path.split('/')[-1]}")
+            dialog.accept()
 
 
 class InsertUrl(QtWidgets.QGroupBox):
