@@ -1,5 +1,5 @@
 from PySide6 import QtWidgets, QtGui
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QSize, Qt
 
 
 class ImageDropTarget(QtWidgets.QLabel):
@@ -36,24 +36,49 @@ class ModuleCard(QtWidgets.QFrame):
         super().__init__()
 
         module_layout = QtWidgets.QVBoxLayout(self)
+        module_layout.setContentsMargins(10, 10, 10, 10)
+
+        separator = QtWidgets.QFrame()
+        separator.setFrameShape(QtWidgets.QFrame.Shape.HLine)
+        separator.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+
+        self.setObjectName("module_card")
+        self.setStyleSheet("""
+            QFrame#module_card {
+                border: 1px solid #606090;
+                border-radius: 14px;
+            }
+        """)
 
         header = QtWidgets.QWidget()
         header_layout = QtWidgets.QHBoxLayout(header)
 
         title_label = QtWidgets.QLabel(title)
+        title_label.setFont(QtGui.QFont("Jetbrains Mono Nerd"))
+        title_label.setStyleSheet(
+            """QLabel {
+                font-size: 14px;
+            }
+            """
+        )
 
         self.toggle_btn = QtWidgets.QPushButton("↑")
         self.toggle_btn.setFlat(True)
+        self.toggle_btn.setFixedSize(QSize(25, 25))
         self.toggle_btn.clicked.connect(self._toggle)
 
         header_layout.addWidget(title_label)
         header_layout.addStretch()
         header_layout.addWidget(self.toggle_btn)
+        header_layout.setContentsMargins(0, 0, 0, 5)
 
         self.body = QtWidgets.QWidget()
         self.body_layout = QtWidgets.QVBoxLayout(self.body)
+        self.body_layout.setContentsMargins(0, 10, 0, 10)
 
         module_layout.addWidget(header)
+        module_layout.setSpacing(0)
+        module_layout.addWidget(separator)
         module_layout.addWidget(self.body)
 
     def _toggle(self):
@@ -72,7 +97,7 @@ class ColorPickWdg(QtWidgets.QGroupBox):
         layout = QtWidgets.QHBoxLayout(self)
         self.setStyleSheet("""
             QGroupBox {
-                border: 1px solid gray;
+                border: 1px solid #606090;
                 border-radius: 6px;
                 margin-top: 1ex;
             }
