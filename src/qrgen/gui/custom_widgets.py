@@ -29,7 +29,6 @@ class ImageDropTarget(QtWidgets.QLabel):
         if self._dropped_file is not None:
             pix = QtGui.QPixmap(self._dropped_file).scaled(100, 100)
             self.setPixmap(pix)
-            self.parent().accept()
 
 
 class ModuleCard(QtWidgets.QFrame):
