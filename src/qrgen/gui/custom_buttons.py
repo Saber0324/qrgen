@@ -1,6 +1,6 @@
 from PySide6 import QtWidgets, QtGui
 from PySide6.QtGui import QColor
-from qrgen.gui.drop_target import ImageDropTarget
+from qrgen.gui.custom_widgets import ImageDropTarget
 from qrgen.gui.constants import ASSETS_DIR
 
 
