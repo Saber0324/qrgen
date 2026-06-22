@@ -77,5 +77,15 @@ class InsertUrl(QtWidgets.QGroupBox):
         """)
         layout = QtWidgets.QVBoxLayout(self)
         url_line = QtWidgets.QLineEdit()
-        url_line.setPlaceholderText("Insert url")
+        url_line.setPlaceholderText("https://example.com")
+        url_line.setStyleSheet("""
+                    QLineEdit {
+                        border-width: 3px;
+                        border-style: solid;
+                        border-color: transparent;
+                        padding: 4px;
+                    }
+                    QLineEdit:focus {
+                        border-color: transparent;
+                    }""")
         layout.addWidget(url_line)
