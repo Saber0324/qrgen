@@ -23,6 +23,19 @@ class UploadButton(QtWidgets.QGroupBox):
     def __init__(self, text: str):
         super().__init__(text)
         upload_button_icon = QtGui.QPixmap(str(ASSETS_DIR / "upload.svg"))
+        self.setStyleSheet("""
+            QGroupBox {
+                border: 1px solid gray;
+                border-radius: 6px;
+                margin-top: 1ex;
+            }
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                left: 10px;
+                padding: 0 3px;
+            }
+        """)
 
         layout = QtWidgets.QHBoxLayout(self)
         self.upload_label = QtWidgets.QLabel("No image found")
@@ -44,3 +57,25 @@ class UploadButton(QtWidgets.QGroupBox):
         if result == QtWidgets.QDialog.DialogCode.Rejected:
             return
         self.upload_label.setText(f"Icon: {self.upload_dropable._dropped_file}")
+
+
+class InsertUrl(QtWidgets.QGroupBox):
+    def __init__(self, text: str):
+        super().__init__(text)
+        self.setStyleSheet("""
+            QGroupBox {
+                border: 1px solid gray;
+                border-radius: 6px;
+                margin-top: 1ex;
+            }
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                left: 10px;
+                padding: 0 3px;
+            }
+        """)
+        layout = QtWidgets.QVBoxLayout(self)
+        url_line = QtWidgets.QLineEdit()
+        url_line.setPlaceholderText("Insert url")
+        layout.addWidget(url_line)
