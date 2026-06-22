@@ -1,9 +1,8 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Qt
-from qrgen.gui.custom_buttons import UploadButton
+from qrgen.gui.custom_buttons import InsertUrl, UploadButton
 from qrgen.qr_code.qr_generator import generated_path
-from qrgen.gui.module_card import ModuleCard
-from qrgen.gui.color_picker import ColorPickWdg
+from qrgen.gui.custom_widgets import ModuleCard, ColorPickWdg
 
 
 class MainWidget(QtWidgets.QWidget):
@@ -28,7 +27,6 @@ class MainWidget(QtWidgets.QWidget):
         container_layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
 
         scroll.setWidget(container)
-
         preview = QtWidgets.QFrame()
         preview.setFixedWidth(250)
 
@@ -48,8 +46,7 @@ class MainWidget(QtWidgets.QWidget):
         top_layout.addWidget(preview)
 
         content_card = ModuleCard("CONTENT")
-        content_card.add_widget(QtWidgets.QLabel("Your website URL"))
-        content_card.add_widget(QtWidgets.QLineEdit())
+        content_card.add_widget(InsertUrl("Insert url"))
         container_layout.addWidget(content_card)
 
         design_card = ModuleCard("DESIGN")
