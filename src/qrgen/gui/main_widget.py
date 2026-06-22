@@ -36,6 +36,7 @@ class MainWidget(QtWidgets.QWidget):
 
         preview_label = QtWidgets.QLabel()
         preview_label.setPixmap(scaled_pixmap)
+        preview_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         upload_button = UploadButton("Upload an image")
 
