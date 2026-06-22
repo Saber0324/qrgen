@@ -10,7 +10,7 @@ class ImageDropTarget(QtWidgets.QLabel):
         self.setFixedSize(200, 150)
         self.setAcceptDrops(True)
 
-        self._dropped_file = None
+        self._dropped_file: str | None = None
 
     def dragEnterEvent(self, event):
         mime = event.mimeData()
@@ -26,5 +26,6 @@ class ImageDropTarget(QtWidgets.QLabel):
             self._dropped_file = local_path
 
     def dropEvent(self, event):
-        pix = QtGui.QPixmap(self._dropped_file).scaled(100, 100)
-        self.setPixmap(pix)
+        if self._dropped_file is not None:
+            pix = QtGui.QPixmap(self._dropped_file).scaled(100, 100)
+            self.setPixmap(pix)
