@@ -24,11 +24,21 @@ class MainWidget(QtWidgets.QWidget):
 
         container = QtWidgets.QWidget()
         container_layout = QtWidgets.QVBoxLayout(container)
+        container_layout.setContentsMargins(0, 0, 0, 0)
         container_layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
 
         scroll.setWidget(container)
+        scroll.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
+
         preview = QtWidgets.QFrame()
         preview.setFixedWidth(250)
+        preview.setObjectName("preview_frame")
+        preview.setStyleSheet("""
+            QFrame#preview_frame {
+                border: 1px solid #606090;
+                border-radius: 14px;
+            }
+        """)
 
         preview_layout = QtWidgets.QVBoxLayout()
         preview_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -46,14 +56,20 @@ class MainWidget(QtWidgets.QWidget):
         top_layout.addWidget(scroll)
         top_layout.addWidget(preview)
 
+        self.qr_color_button = ColorPickWdg("Background color", "#FFF")
+        self.bg_color_button = ColorPickWdg("QR color", "#000")
         content_card = ModuleCard("CONTENT")
         content_card.add_widget(InsertUrl("Insert url"))
         container_layout.addWidget(content_card)
+        container_layout.setSpacing(10)
 
         design_card = ModuleCard("DESIGN")
-        design_card.add_widget(ColorPickWdg("Background color", "#FFF"))
-        design_card.add_widget(ColorPickWdg("QR color", "#000"))
+        design_card.add_widget(self.qr_color_button)
+        design_card.add_widget(self.bg_color_button)
         container_layout.addWidget(design_card)
+
+    def _on_bg_color_selected(self):
+        print(self.bg_color_button.color)
 
 
 def run_gui():
