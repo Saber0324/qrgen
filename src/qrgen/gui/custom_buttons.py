@@ -1,5 +1,5 @@
 from pathlib import Path
-from PySide6 import QtWidgets, QtGui, QtCore, QtSvg
+from PySide6 import QtWidgets, QtGui
 from PySide6.QtCore import QSize
 from qrgen.gui.constants import ASSETS_DIR
 from qrgen.gui.helpers import recolor_svg

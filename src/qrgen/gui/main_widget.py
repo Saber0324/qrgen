@@ -1,6 +1,5 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Qt
-from qrgen.gui.constants import ASSETS_DIR
 from qrgen.gui.custom_buttons import InsertUrl, UploadButton
 from qrgen.qr_code.qr_generator import generated_path
 from qrgen.gui.custom_widgets import ModuleCard, ColorPickWdg
