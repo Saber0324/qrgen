@@ -141,7 +141,14 @@ class MainWidget(QtWidgets.QWidget):
 
         tabs_widget.addTab(self.upload_button, "Logo")
 
-        tabs_widget.addTab(QtWidgets.QWidget(), "Shape")
+        shape_widget = QtWidgets.QWidget()
+        shape_layout = QtWidgets.QVBoxLayout(shape_widget)
+        self.shape_list = QtWidgets.QListWidget()
+        self.shape_list.addItems(["Default", "Rounded", "Dotted"])
+
+        shape_layout.addWidget(self.shape_list)
+
+        tabs_widget.addTab(shape_widget, "Shape")
 
         content_card = ModuleCard("CONTENT")
         content_card.add_widget(InsertUrl("Insert url"))
