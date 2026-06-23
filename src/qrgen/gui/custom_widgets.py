@@ -1,3 +1,4 @@
+from pathlib import Path
 from PySide6 import QtWidgets, QtGui
 from PySide6.QtCore import QSize, Qt
 
@@ -11,6 +12,7 @@ class ImageDropTarget(QtWidgets.QLabel):
         self.setAcceptDrops(True)
 
         self._dropped_file: str | None = None
+        self.file_name: str | None = None
 
     def dragEnterEvent(self, event):
         mime = event.mimeData()
@@ -29,6 +31,8 @@ class ImageDropTarget(QtWidgets.QLabel):
         if self._dropped_file is not None:
             pix = QtGui.QPixmap(self._dropped_file).scaled(100, 100)
             self.setPixmap(pix)
+            event.accept
+            self.file_name = Path(self._dropped_file).name
 
 
 class ModuleCard(QtWidgets.QFrame):
@@ -36,7 +40,7 @@ class ModuleCard(QtWidgets.QFrame):
         super().__init__()
 
         module_layout = QtWidgets.QVBoxLayout(self)
-        module_layout.setContentsMargins(10, 10, 10, 10)
+        module_layout.setContentsMargins(10, 10, 10, 6)
 
         separator = QtWidgets.QFrame()
         separator.setFrameShape(QtWidgets.QFrame.Shape.HLine)
@@ -108,6 +112,7 @@ class ColorPickWdg(QtWidgets.QGroupBox):
                 padding: 0 3px;
             }
         """)
+        self.setMaximumHeight(70)
 
         self.color_lbl = QtWidgets.QLabel("#FFFFFF")
         self.color_swatch = QtWidgets.QPushButton()
@@ -136,5 +141,6 @@ class ColorPickWdg(QtWidgets.QGroupBox):
         self.color_lbl.setText(hex_color.upper())
         self.color_swatch.setStyleSheet(f"background-color: {hex_color};")
 
+    @property
     def color(self):
         return self.current_color
