@@ -1,6 +1,6 @@
 [project]
 name = "qrgen"
-version = "0.1.0"
+version = "1.0-beta"
 description = "Add your description here"
 readme = "README.md"
 authors = [{ name = "Saber_0324", email = "saber0324@proton.me" }]
