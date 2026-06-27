@@ -11,3 +11,14 @@ def recolor_svg(path: Path, color: str) -> QtGui.QPixmap:
     renderer.render(painter)
     painter.end()
     return pixmap
+
+
+def svg_to_pixmap(svg_string: str, size: int = 290) -> QtGui.QPixmap:
+
+    renderer = QtSvg.QSvgRenderer(QtCore.QByteArray(svg_string.encode()))
+    pixmap = QtGui.QPixmap(size, size)
+    pixmap.fill(QtCore.Qt.GlobalColor.transparent)
+    painter = QtGui.QPainter(pixmap)
+    renderer.render(painter)
+    painter.end()
+    return pixmap
