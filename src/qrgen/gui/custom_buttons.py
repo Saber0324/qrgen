@@ -1,7 +1,7 @@
 from pathlib import Path
 from PySide6 import QtWidgets, QtGui
 from PySide6.QtCore import QSize
-from qrgen.gui.constants import ASSETS_DIR
+from qrgen.constants import ASSETS_DIR
 from qrgen.gui.helpers import recolor_svg
 
 
@@ -69,9 +69,9 @@ class InsertUrl(QtWidgets.QGroupBox):
             }
         """)
         layout = QtWidgets.QVBoxLayout(self)
-        url_line = QtWidgets.QLineEdit()
-        url_line.setPlaceholderText("https://example.com")
-        url_line.setStyleSheet("""
+        self.url_line = QtWidgets.QLineEdit()
+        self.url_line.setPlaceholderText("https://example.com")
+        self.url_line.setStyleSheet("""
                     QLineEdit {
                         border-width: 3px;
                         border-style: solid;
@@ -81,4 +81,4 @@ class InsertUrl(QtWidgets.QGroupBox):
                     QLineEdit:focus {
                         border-color: transparent;
                     }""")
-        layout.addWidget(url_line)
+        layout.addWidget(self.url_line)
