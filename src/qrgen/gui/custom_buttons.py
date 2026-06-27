@@ -52,7 +52,7 @@ class UploadButton(QtWidgets.QGroupBox):
             dialog.accept()
 
 
-class InsertUrl(QtWidgets.QGroupBox):
+class InputLine(QtWidgets.QGroupBox):
     def __init__(self, text: str):
         super().__init__(text)
         self.setStyleSheet("""
