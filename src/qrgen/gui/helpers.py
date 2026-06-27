@@ -35,7 +35,10 @@ def embed_logo(svg_string: str, logo: Path):
 
     qr_image = Image.open(io.BytesIO(buffer.data()))
 
-    logo_image = Image.open(logo).convert("RGBA")
+    if logo.suffix == ".svg":
+        logo_image = svg_logo_to_pil(logo)
+    else:
+        logo_image = Image.open(logo).convert("RGBA")
 
     logo_size = qr_image.width // 4
     logo_image = logo_image.resize((logo_size, logo_size), Image.Resampling.LANCZOS)
