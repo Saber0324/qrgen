@@ -46,3 +46,13 @@ def embed_logo(svg_string: str, logo: Path):
     qr_image.paste(logo_image, (pos_x, pos_y), logo_image)
 
     return qr_image
+
+
+def svg_logo_to_pil(logo_path: Path) -> Image.Image:
+    pixmap = QtGui.QPixmap(str(logo_path))
+    buffer = QtCore.QByteArray()
+    device = QtCore.QBuffer(buffer)
+    device.open(QtCore.QIODevice.OpenModeFlag.WriteOnly)
+    pixmap.save(device, "PNG")
+    device.close()
+    return Image.open(io.BytesIO(buffer.data())).convert("RGBA")
