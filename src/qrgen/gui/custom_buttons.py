@@ -9,6 +9,7 @@ class UploadButton(QtWidgets.QGroupBox):
     def __init__(self, text: str):
         super().__init__(text)
         upload_icon_path = ASSETS_DIR / "upload.svg"
+        self.file_path: Path | None = None
 
         self.setStyleSheet("""
             QGroupBox {
@@ -36,20 +37,16 @@ class UploadButton(QtWidgets.QGroupBox):
         layout.addWidget(self.upload_label)
         layout.addWidget(upload_button)
 
-        self.upload_dialog = QtWidgets.QDialog()
-        self.upload_dialog.setWindowTitle("qrgen")
-
-    def _on_upload_button_clicked(self, dialog: QtWidgets.QDialog):
+    def _on_upload_button_clicked(self):
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
             "Select Image",
             "",
-            "Images (*.png *.jpg *.jpeg *.svg)",
+            "Images (*.png *.jpg *.jpeg *.svg *.webp)",
         )
         if file_path:
-            file_path = Path(file_path)
-            self.upload_label.setText(f"{file_path.name}")
-            dialog.accept()
+            self.file_path = Path(file_path)
+            self.upload_label.setText(f"{self.file_path.name}")
 
 
 class InputLine(QtWidgets.QGroupBox):
